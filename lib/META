@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: 5e2e9f35d027351584b4e3eecaf85451)
+version = "0.1"
+description = "Tarjan"
+requires = "ocamlgraph"
+archive(byte) = "tarjangraph.cma"
+archive(byte, plugin) = "tarjangraph.cma"
+archive(native) = "tarjangraph.cmxa"
+archive(native, plugin) = "tarjangraph.cmxs"
+exists_if = "tarjangraph.cma"
+# OASIS_STOP
+

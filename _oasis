@@ -1,0 +1,25 @@
+OASISFormat: 0.3
+Name:        tarjan
+Version:     0.1
+Synopsis:    Tarjan
+Authors:     Dmitrii Kosarev aka Kakadu
+License:     BSD3
+Plugins:     META (0.3), DevFiles (0.3)
+
+Library tarjangraph
+  Path:       lib
+  BuildTools: ocamlbuild
+  Modules:    Tarjan
+  BuildDepends: ocamlgraph
+
+Executable testrunner
+  Path:     test
+  BuildTools: ocamlbuild
+  MainIs:   testrunner.ml
+  Install:   false
+  BuildDepends: ocamlgraph,tarjangraph,oUnit(>= 1.1.0),threads
+
+Test test1
+  Command: ../testrunner.byte
+  WorkingDirectory: test
+  
