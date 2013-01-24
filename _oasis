@@ -9,7 +9,7 @@ Plugins:     META (0.3), DevFiles (0.3)
 Library tarjangraph
   Path:       lib
   BuildTools: ocamlbuild
-  Modules:    Tarjan
+  Modules:    Tarjan,Reducer
   BuildDepends: ocamlgraph
 
 Executable testrunner
@@ -19,7 +19,20 @@ Executable testrunner
   Install:   false
   BuildDepends: ocamlgraph,tarjangraph,oUnit(>= 1.1.0),threads
 
-Test test1
+Test TestCycles
   Command: ../testrunner.byte
   WorkingDirectory: test
+
+Executable testrududer
+  Path:     test
+  BuildTools: ocamlbuild
+  MainIs:   testreducer.ml
+  Install:   false
+  BuildDepends: ocamlgraph,tarjangraph,oUnit(>= 1.1.0),threads
+
+Test TestReducer
+  Command: ../testreducer.byte
+  WorkingDirectory: test
+
+
   

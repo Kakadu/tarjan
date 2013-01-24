@@ -23,7 +23,8 @@ module T = Tarjan.Make(G)
 
 let test1 = 
   "tarjan" >:::
-    [ ("cycle in itself" >:: fun () ->
+    [ (*
+      ("cycle in itself" >:: fun () ->
         let g = G.create () in
         let v = "a" in
         G.add_vertex g v;
@@ -73,6 +74,55 @@ let test1 =
           print_endline "failed"      
         end
     )
+      *)
+      ("lablqt" >:: fun () ->
+      let open Graph in
+      let module D = Dot_ast in
+      let filename = "lablqt.qt5.dot" in
+      let ast = 
+        let buf = Lexing.from_channel (open_in filename) in
+        (Dot_parser.file Dot_lexer.token buf).D.stmts
+      in
+      let g = G.create () in
+      List.iter (function
+        | Dot_ast.Node_stmt ((Dot_ast.String id,_),_) -> G.add_vertex g id
+        | Dot_ast.Edge_stmt (x,xs,_) -> begin
+            let f = function
+              | D.NodeId (D.String s,_) -> s
+              | _ -> assert false
+            in
+            let x = f x in
+            let xs = List.map f xs in
+            (*printf "%s, [%s]\n%!" x (String.concat "," xs) *)
+            let _ = List.fold_left (fun acc x ->
+              G.add_edge g acc x; x
+            ) x xs in
+            ()
+        end
+        | _ -> ()
+      ) ast;
+      let ans = T.find g in
+      print_endline "EVALUATING ANSWER";
+      List.iter (fun xs ->
+        printf "%s\n%!" (String.concat "," xs)
+      ) ans
+      
+    )
     ]
 
 let _ = run_test_tt_main test1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
